@@ -1,0 +1,30 @@
+.description{
+    color:blue;
+}
+
+.contentDescription{
+    width: 500px;
+    margin-top: 30px;
+    align-content: center;
+
+}
+p{
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+fieldset {
+    border: 1px solid #999;
+    border-radius: 4px;
+}
+
+form{
+    background-position: right;
+}
+
+button{
+    position: relative;
+    float: right;
+    margin-left: 10px;
+}

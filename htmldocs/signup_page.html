@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/style_signin.css">
+    <title>SignIn</title>
+</head>
+<body>
+<form method="post" action="../php/signup.php">
+    <fieldset>
+        <legend>Sign Up</legend>
+        <div>
+            <p><label for="inputUser">Username: </label>
+                <input type="text" name="user" id="inputUser" value="" autofocus="autofocus" required="required"/></p>
+            <p><label for="inputPassword">Password: </label>
+                <input type="password" name="password" id="inputPassword" value="" required="required"/></p>
+            <p><label for="inputName">Name: </label>
+                <input type="text" name="name" id="inputName" value="" autofocus="autofocus" required="required"/></p>
+            <p><label for="inputSurname">Surname: </label>
+                <input type="text" name="surname" id="inputSurname" value="" autofocus="autofocus" required="required"/></p>
+        </div>
+        <button type="submit">Sign Up</button>
+    </fieldset>
+</form>
+</body>
+</html>
