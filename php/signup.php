@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $name = $_POST['name'];
     $surname = $_POST['surname'];
     $app = new App();
-    $regexpPassword = '/(?i)^(?=.*[a-z])(?=.*\d).{8,}$/';
+    $regexpPassword = '/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/';
     $regexpUsername = '/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/';
 
     if (empty($user)) {
