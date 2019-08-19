@@ -1,5 +1,6 @@
 <?php
 include_once 'app.php';
+include_once 'usersxml.php';
 session_start();
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $user = $_POST['user'];
@@ -18,24 +19,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $app->failed("Name is empty.");
     } else if (empty($surname)) {
         $app->failed("Surname is empty.");
-    } else {
-        // Make a connection to DB and check if user exists.
-        if (!$app->getDao()->isConnected()) {
-            echo "<p>" . $app->getDao()->error . "</p>";
-        } elseif (!$app->getDao()->validateUserSignUp($user)) {
-            if(!preg_match($regexpPassword, $password)) {
-                $app->failed("Password does not contain at least 1 number/letter, 8 character minimum requirement.");
-            }else if (!preg_match($regexpUsername, $user)){
-                $app->failed("Username must be a email direction.");
-            }else{
-                if ($app->getDao()->registerUser($user, $password, $name, $surname)){
-                    $app->showSignIn();
-                }else{
-                    $app->failed("Unable to register the user.");
-                }
-            }
-        } else {
-            $app->failed("Username already exists.");
+    } else if (!preg_match($regexpPassword, $password)) {
+        $app->failed("Password does not contain at least 1 number/letter, 8 character minimum requirement.");
+    } else if (!preg_match($regexpUsername, $user)) {
+        $app->failed("Username must be a email direction.");
+    }
+    // Write user in XML file and show Sign In page.
+    $users = new SimpleXMLElement($xmlstr);
+    $exists = false;
+    foreach ($users->xpath('//user') as $userCollection) {
+        if ($userCollection->username == $user) {
+            $exists = true;
+            $app->failed("Username already exists");
         }
     }
+
+    if (!$exists) {
+        $newUser = $users->addChild('user');
+        $newUser->addChild('username', $user);
+        $newUser->addChild('password', $password);
+        $newUser->addChild('name', $name);
+        $newUser->addChild('surname', $surname);
+    }
+
+    echo $users->asXML();
+    $users->asXML('')
+
+
+    //$app->showSignIn();
+    //$app->failed("Unable to register the user.");
+    $exists = false;
 }
