@@ -1,9 +1,4 @@
-<?xml version='1.0'?>
+<?xml version="1.0"?>
 <users>
-    <user>
-        <username>user@mail.es</username>
-        <password>1234Pass</password>
-        <name>John</name>
-        <surname>Doe</surname>
-    </user>
-</users>
+
+<user><username>test1@gmail.com</username><password>Nyancat123</password><name>Salvador</name><surname>Dal&#xED;</surname></user><user><username>test2@gmail.com</username><password>FlyCat12&#xF1;</password><name>Chris</name><surname>Brown</surname></user></users>

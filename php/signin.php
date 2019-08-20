@@ -1,6 +1,6 @@
 <?php
 include_once 'app.php';
-session_start();
+
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $user = $_POST['user'];
     $password = $_POST['password'];
@@ -9,16 +9,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     } else if (empty($password)) {
         echo "<p>Password is empty.</p>";
     } else {
-        // Make a connection to DB and check if user exists.
         $app = new App();
+        $filename = 'usersxml.xml';
+        $doc = new DOMDocument('1.0');
+        $doc->formatOutput = true;
+        $doc->load($filename);
+        // Convert the stream into string xml format.
+        $xmlString = $doc->saveXML();
+        $users = new SimpleXMLElement($xmlString);
+        $exists = false;
+        // Checks if the username already exists and activate the flag.
+        foreach ($users->xpath('//user') as $userCollection) {
+            if ($userCollection->username == $user) {
+                $exists = true;
+                $app->loginCorrect($user);
+                return;
+            }
+        }
 
-        if (!$app->getDao()->isConnected()) {
-            echo "<p>" . $app->getDao()->error . "</p>";
-        } elseif ($app->getDao()->validateUser($user, $password)) {
-            // Save user session.
-            $app->init_session($user);
-            $app->loginCorrect($user);
-        } else {
+        if (!$exists) {
+            $exists = false;
             $app->failed("Wrong username or password.");
         }
     }
