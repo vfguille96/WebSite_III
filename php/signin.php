@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $exists = false;
         // Checks if the username already exists and activate the flag.
         foreach ($users->xpath('//user') as $userCollection) {
-            if ($userCollection->username == $user) {
+            if ($userCollection->username == $user && $userCollection->password == $password) {
                 $exists = true;
                 $app->loginCorrect($user);
                 return;
